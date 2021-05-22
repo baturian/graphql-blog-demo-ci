@@ -1,0 +1,25 @@
+name: deploy
+
+on:
+  push:
+    branches:
+       - "master"
+  pull_request:
+    branches:
+      - "master"
+
+jobs:
+  prettier:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install NVM
+        run: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+      - name: Install NODEJS
+        env:
+          NODE_VERSION: 14.17.0
+        run: nvm install $NODE_VERSION
+      - name: Install dependencies
+        run: npm install
+      - name: Prettify our source code with Prettier
+        run: npm run prettier --single-quote
