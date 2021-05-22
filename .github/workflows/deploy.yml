@@ -15,7 +15,5 @@ jobs:
       image: node:14.17-alpine
     steps:
       - uses: actions/checkout@v2
-      - name: Install Prettier
-        run: npm i prettier
       - name: Prettify our source code with Prettier
         run: npx prettier --check --single-quote
