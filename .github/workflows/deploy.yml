@@ -11,17 +11,11 @@ on:
 jobs:
   prettier:
     runs-on: ubuntu-20.04
+    container:
+      image: node:14.17-alpine
     steps:
       - uses: actions/checkout@v2
-      - name: Install NVM
-        run: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
-      - name: Activate NVM
-        run: export NVM_DIR="$HOME/.nvm" && . "$NVM_DIR/nvm.sh" --no-use
-      - name: Install NODEJS
-        env:
-          NODE_VERSION: 14.17.0
-        run: nvm install $NODE_VERSION
-      - name: Install dependencies
-        run: npm install
+      - name: Install Prettier
+        run: npm i prettier
       - name: Prettify our source code with Prettier
-        run: npm run prettier --single-quote
+        run: npm run prettier --check --single-quote
