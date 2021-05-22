@@ -18,4 +18,4 @@ jobs:
       - name: Install Prettier
         run: npm i prettier
       - name: Prettify our source code with Prettier
-        run: npm run prettier --check --single-quote
+        run: npx prettier --check --single-quote
