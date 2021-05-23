@@ -66,10 +66,7 @@ jobs:
         # заливаем файлы при помощи rsync
         run: |
           rsync -a --progress --human-readable --delete \
-          --exclude-from '.gitignore' \
-          --exclude .gitignore \
-          --exclude .git \
           . deploy@18.156.205.253:~/ci-app/
       - name: Restart the application
         run: |
-          ssh deploy@18.156.205.253 "pushd ~/ci-app && npm install --production && popd && pm2 restart ecosystem.config.js --env production"
+          ssh deploy@18.156.205.253 "pushd ~/ci-app && npm ci --production && popd && pm2 restart ecosystem.config.js --env production"
