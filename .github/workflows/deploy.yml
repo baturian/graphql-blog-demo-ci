@@ -31,15 +31,10 @@ jobs:
         run: echo "BACKEND_VERSION=${{ github.sha }} \n NEXT_PUBLIC_HOST=$NEXT_PUBLIC_HOST" > .env.local
         env:
           NEXT_PUBLIC_HOST: ${{ secrets.PUBLIC_HOST }}
-      - name: log env vars
-        run: cat .env.local
       - name: Build
         run: npm run build
         env:
           NEXT_PUBLIC_FRONTEND_VERSION: ${{ github.sha }}
-          DB_USER_NAME: ${{ secrets.DB_USER_NAME }}
-          DB_NAME: ${{ secrets.DB_NAME }}
-          DB_USER_PASSWORD: ${{ secrets.DB_USER_PASSWORD }}
       - name: Archive build
         uses: actions/upload-artifact@v2
         with:
@@ -74,3 +69,5 @@ jobs:
       - name: Restart the application
         run: |
           ssh deploy@18.156.205.253 "pushd ~/ci-app && npm ci --production && popd && pm2 restart ecosystem.config.js --env production"
+        env:
+          BACKEND_VERSION: ${{ github.sha }}
