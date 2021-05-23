@@ -15,6 +15,8 @@ jobs:
       image: node:14.17-alpine
     steps:
       - uses: actions/checkout@v2
+      - name: "Npm Install"
+        run: npm ci
       - name: Check our source code by prettier
         continue-on-error: true
         run: npx prettier --check "**/**.js" --single-quote
@@ -23,5 +25,7 @@ jobs:
     container:
       image: node:14.17-alpine
     steps:
+      - name: "Npm Install"
+        run: npm ci
       - name: TypeScript check
         run: npx tsc 
