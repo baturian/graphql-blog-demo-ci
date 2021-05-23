@@ -28,8 +28,7 @@ jobs:
       - name: Generate prisma and nexus
         run: "npm run generate:prisma"
       - name: Set public host variable
-        run: echo "NEXT_PUBLIC_HOST=$PUBLIC_HOST" > .env && \
-            echo "BACKEND_VERSION=$${{ github.sha }}" >> .env
+        run: echo "NEXT_PUBLIC_HOST=$PUBLIC_HOST" > .env && echo "BACKEND_VERSION=$${{ github.sha }}" >> .env
         env:
           NEXT_PUBLIC_HOST: ${{ secrets.PUBLIC_HOST }}
       - name: Build
