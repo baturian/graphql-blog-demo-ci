@@ -27,8 +27,8 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          BACKEND_VERSION: ${{ github.sha.slice(0, 9) }}
-          NEXT_PUBLIC_FRONTEND_VERSION: ${{ github.sha.slice(0, 8) }}
+          BACKEND_VERSION: ${{ github.sha }}
+          NEXT_PUBLIC_FRONTEND_VERSION: ${{ github.sha }}
           PUBLIC_HOST: ${{ secrets.PUBLIC_HOST }}
           DB_USER_NAME: ${{ secrets.DB_USER_NAME }}
           DB_NAME: ${{ secrets.DB_NAME }}
