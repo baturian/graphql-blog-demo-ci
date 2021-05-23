@@ -1,6 +1,6 @@
 const Footer = () => {
   const frontendVersion =
-    process.env.NEXT_PUBLIC_FRONTEND_VERSION ?? 'undefined';
+    process.env.NEXT_PUBLIC_FRONTEND_VERSION ?? "undefined";
   const backendVersion =
     process.env.BACKEND_VERSION ?? globalThis?.backendVersion ?? 'undefined';
 

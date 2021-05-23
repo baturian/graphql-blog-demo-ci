@@ -15,5 +15,13 @@ jobs:
       image: node:14.17-alpine
     steps:
       - uses: actions/checkout@v2
-      - name: Prettify our source code with Prettier
-        run: npx prettier --check --single-quote
+      - name: Check our source code by prettier
+        continue-on-error: true
+        run: npx prettier --check "**/**.js" --single-quote
+  typescript:
+    runs-on: ubuntu-20.04
+    container:
+      image: node:14.17-alpine
+    steps:
+      - name: TypeScript check
+        run: npx tsc 
