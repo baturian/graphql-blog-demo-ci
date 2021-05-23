@@ -46,6 +46,7 @@ jobs:
           name: build
           path: |
             .next
+            prisma
             package.json
             package-lock.json
   deploy:
