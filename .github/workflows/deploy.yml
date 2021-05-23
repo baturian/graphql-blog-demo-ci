@@ -35,12 +35,15 @@ jobs:
           DB_USER_NAME: ${{ secrets.DB_USER_NAME }}
           DB_NAME: ${{ secrets.DB_NAME }}
           DB_USER_PASSWORD: ${{ secrets.DB_USER_PASSWORD }}
-          DATABASE_URL: ${{ 'mysql://$DB_USER_NAME:$DB_USER_PASSWORD@localhost:3306/$DB_NAME' }}
+#          DATABASE_URL: ${{ 'mysql://$DB_USER_NAME:$DB_USER_PASSWORD@localhost:3306/$DB_NAME' }}
       - name: Archive build
         uses: actions/upload-artifact@v2
         with:
           name: build
-          path: .next
+          path: |
+            .next
+            package.json
+            package-lock.json
   deploy:
     needs: build
     runs-on: ubuntu-20.04
@@ -61,3 +64,14 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
+      - name: Copy files to the server
+        # заливаем файлы при помощи rsync
+        run: |
+          rsync -a --progress --human-readable --delete \
+          --exclude-from '.gitignore' \
+          --exclude .gitignore \
+          --exclude .git \
+          . deploy@18.156.205.253:~/ci-app/
+      - name: Restart the application
+        run: |
+          ssh deploy@18.156.205.253 "pushd ~/ci-app && npm install --production && popd && pm2 restart ecosystem.config.js --env production"
