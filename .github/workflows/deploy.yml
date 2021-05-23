@@ -28,9 +28,9 @@ jobs:
       - name: Generate prisma and nexus
         run: "npm run generate:prisma"
       - name: Set public host variable
-        run: echo "$PUBLIC_HOST" > .env.local
+        run: echo "$PUBLIC_HOST" > .env
         env:
-          PUBLIC_HOST: ${{ secrets.PUBLIC_HOST }}
+          NEXT_PUBLIC_HOST: ${{ secrets.PUBLIC_HOST }}
       - name: Build
         run: npm run build
         env:
