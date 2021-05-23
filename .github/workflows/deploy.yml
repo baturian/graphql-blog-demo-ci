@@ -28,11 +28,11 @@ jobs:
       - name: Generate prisma
         run: "npm run generate:prisma"
       - name: Set public host variable
-        run: echo "BACKEND_VERSION=${{ github.sha }} \n NEXT_PUBLIC_HOST=$NEXT_PUBLIC_HOST" > .env
+        run: echo "BACKEND_VERSION=${{ github.sha }} \n NEXT_PUBLIC_HOST=$NEXT_PUBLIC_HOST" > .env.local
         env:
           NEXT_PUBLIC_HOST: ${{ secrets.PUBLIC_HOST }}
       - name: log env vars
-        run: cat .env
+        run: cat .env.local
       - name: Build
         run: npm run build
         env:
