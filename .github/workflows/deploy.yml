@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    name: Build frontend part of the app
+    name: build
     runs-on: ubuntu-20.04
     container:
       image: node:14.17-alpine
@@ -63,7 +63,6 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
       - name: Copy files to the server
-        # заливаем файлы при помощи rsync
         run: |
           rsync -a --progress --human-readable --delete \
           . deploy@18.156.205.253:~/ci-app/
